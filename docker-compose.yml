@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  etl-baixada-fluminense:
+    build: .
+    container_name: jupyter-pesquisa-rbeur
+    ports:
+      - "8888:8888"
+    volumes:
+      # Mapeia a pasta local ./notebooks para salvar seus scripts Jupyter
+      - ./notebooks:/app/notebooks
+      # Mapeia a pasta local ./dados para receber os downloads pesados do FTP
+      - ./dados:/app/dados
+    environment:
+      - JUPYTER_ENABLE_LAB=yes

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Painel CAGED - Baixada Fluminense</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">
+        <span class="brand__mark">BF</span>
+        <div>
+          <h1>Mercado de Trabalho Formal na Baixada Fluminense</h1>
+          <p class="brand__sub">Análise Socioeconômica via Novo CAGED &middot; <span id="meta-competencia">-</span></p>
+        </div>
+      </div>
+      <div class="meta-chips" id="meta-chips"></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="filters" aria-label="Filtros">
+      <div class="filter">
+        <label for="f-mun">Município</label>
+        <select id="f-mun"></select>
+      </div>
+      <div class="filter">
+        <label for="f-sex">Sexo</label>
+        <select id="f-sex">
+          <option value="all">Todos</option>
+        </select>
+      </div>
+      <div class="filter filter--quick">
+        <label>Atalhos</label>
+        <div class="quick">
+          <button type="button" class="chip" data-preset="all">Toda a região</button>
+          <button type="button" class="chip" data-preset="baixada">Núcleo da Baixada</button>
+        </div>
+      </div>
+      <div class="filter filter--note">
+        <span id="filter-note"></span>
+      </div>
+    </section>
+
+    <section class="kpis" id="kpis"></section>
+
+    <section class="grid">
+      <article class="card card--wide">
+        <header class="card__head">
+          <h2>Admissões e desligamentos por município</h2>
+          <p class="card__hint">Volume de movimentações no mês</p>
+        </header>
+        <div class="canvas canvas--tall" id="c-municipio"><canvas></canvas></div>
+      </article>
+
+      <article class="card">
+        <header class="card__head">
+          <h2>Tipos de desligamento</h2>
+          <p class="card__hint">Composição das desligações</p>
+        </header>
+        <div class="canvas" id="c-desl"><canvas></canvas></div>
+      </article>
+
+      <article class="card card--wide">
+        <header class="card__head">
+          <h2>Saldo por setor de atividade</h2>
+          <p class="card__hint">Admissões menos desligamentos (CNAE 2.0)</p>
+        </header>
+        <div class="canvas canvas--tall" id="c-setor"><canvas></canvas></div>
+      </article>
+
+      <article class="card">
+        <header class="card__head">
+          <h2>Salário médio por setor</h2>
+          <p class="card__hint">Valor mensal declarado (R$)</p>
+        </header>
+        <div class="canvas canvas--tall" id="c-sal-setor"><canvas></canvas></div>
+      </article>
+
+      <article class="card">
+        <header class="card__head">
+          <h2>Por sexo</h2>
+          <p class="card__hint">Admissões x desligamentos</p>
+        </header>
+        <div class="canvas" id="c-sexo"><canvas></canvas></div>
+      </article>
+
+      <article class="card">
+        <header class="card__head">
+          <h2>Por raça/cor</h2>
+          <p class="card__hint">Admissões x desligamentos</p>
+        </header>
+        <div class="canvas" id="c-raca"><canvas></canvas></div>
+      </article>
+
+      <article class="card">
+        <header class="card__head">
+          <h2>Por faixa etária</h2>
+          <p class="card__hint">Admissões x desligamentos</p>
+        </header>
+        <div class="canvas" id="c-faixa"><canvas></canvas></div>
+      </article>
+
+      <article class="card">
+        <header class="card__head">
+          <h2>Por escolaridade</h2>
+          <p class="card__hint">Grau de instrução</p>
+        </header>
+        <div class="canvas" id="c-grau"><canvas></canvas></div>
+      </article>
+
+      <article class="card card--full">
+        <header class="card__head">
+          <h2>Ocupações com maior movimentação</h2>
+          <p class="card__hint">Top ocupações (CBO 2002) por volume no mês</p>
+        </header>
+        <div class="canvas canvas--tall" id="c-cbo"><canvas></canvas></div>
+      </article>
+
+      <article class="card card--full">
+        <header class="card__head">
+          <h2>Perfis específicos de contratação</h2>
+          <p class="card__hint">Participação nas admissões do período filtrado</p>
+        </header>
+        <div class="mini-stats" id="c-flags"></div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Fonte:</strong> Novo CAGED &mdash; Ministério do Trabalho e Emprego (MTE). Base tratada do projeto (<code>dados/caged_baixada_202401.parquet</code>).</p>
+      <p><strong>Nota metodológica:</strong> admissões correspondem a <code>saldomovimentação = 1</code> e desligamentos a <code>saldomovimentação = -1</code>. O salário médio considera apenas registros com salário declarado positivo. As admissões desta extração estão codificadas sob o tipo de movimentação <code>97</code>, não detalhado no layout oficial do MTE. O recorte abrange os municípios da Região Metropolitana do Rio de Janeiro presentes na base; o "Núcleo da Baixada" destaca os municípios da Baixada Fluminense.</p>
+      <p class="footer__gen" id="footer-gen"></p>
+    </footer>
+  </main>
+
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

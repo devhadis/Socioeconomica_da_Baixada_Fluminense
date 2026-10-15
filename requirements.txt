@@ -1,0 +1,10 @@
+jupyterlab>=4.0.0
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.10.0
+py7zr>=0.20.0       # Essencial para extrair os arquivos .7z do Novo CAGED
+requests>=2.31.0    # Para conectar à API do SIDRA
+openpyxl>=3.1.0     # Para ler os dicionários de layout em Excel do IBGE/MTE
+pyarrow>=14.0.0     # Para salvar os dados limpos em .parquet (otimizado para Power BI)
+matplotlib>=3.8.0   # Para visualizações exploratórias no Jupyter
+seaborn>=0.13.0
